@@ -12,6 +12,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
+  console.log(req)
   await BlogPost.create(req.body);
   res.redirect('/');
 });
