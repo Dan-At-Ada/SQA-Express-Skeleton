@@ -1,7 +1,24 @@
 extends layout
 
 block content
-  p.post-meta By #{post.author} (Posted on #{post.created_at.toLocaleString()})
+  p.post-meta 
+    | Created by #{post.author} on 
+    script.
+      var date = new Date("#{post.created_at}");
+      var formattedDate = date.toLocaleString('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false  // 24-hour format
+      });
+      document.write(formattedDate);
   p.post-content= post.content
-  a(href=`/edit/${post.id}`) Edit Post
+
+  form(action=`/edit/${post.id}`, method="GET")
+    button(type="submit") Edit Post
+  
+  div(style="margin-top: 20px")
+    button(type="button", onclick="window.history.back()") Back
 
