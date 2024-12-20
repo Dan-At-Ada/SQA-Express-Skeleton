@@ -12,7 +12,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-  console.log(req)
+  console.log(req.body)
   await BlogPost.create(req.body);
   res.redirect('/');
 });

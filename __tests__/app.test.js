@@ -31,12 +31,15 @@ describe('Blog Routes', () => {
 
         const response = await request(app)
             .post('/create')
+            .type('form')
             .send(newPost)
-            // .expect(200)
+            .timeout({ deadline: 2000 }) // Fail if no response within 2 seconds
+            .expect(302) // Redirects to the home page
+            
         
         const foundPost = await BlogPost.findOne({ where: {title: newPost.title}});
-        expect(post).not.toBeNull();
-        expect(post.content).toBe(newPost.content)
+        expect(foundPost).not.toBeNull();
+        expect(foundPost.content).toBe(newPost.content)
     })
 
 
